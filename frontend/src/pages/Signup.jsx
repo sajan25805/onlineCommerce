@@ -3,16 +3,26 @@ import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
+import axios from "axios";
+import { server } from "../server";
 
 const Signup = () => {
-  const [fullName, setFullName] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(true);
   const [avatar, setAvatar] = useState(false);
 
   const handleSubmit = () => {
-    console.log("FFFFFFFF");
+    const { config } = { headers: { "Content-Type": "multipart/form-data" }};
+    
+
+    const newForm = new FormData();
+    newForm.append("file", avatar);
+    newForm.append("name", name);
+    newForm.append("password", password);
+
+    axios.post(`${server}/user/create-user`);
   };
 
   const handleFileInputChange = (e) => {
@@ -21,7 +31,7 @@ const Signup = () => {
   };
 
   const handleFullNameChange = (e) => {
-    setFullName(e.target.value);
+    setName(e.target.value);
   };
 
   return (
@@ -35,7 +45,7 @@ const Signup = () => {
         <p className="text-lg text-gray-900 mb-6">Create your account</p>
 
         {/* Signup Form */}
-        <form className="space-y-6 px-2 ">
+        <form className="space-y-6 px-2" onSubmit={handleSubmit}>
           <div className="mt-1">
             <label
               htmlFor="fullName"
@@ -47,7 +57,7 @@ const Signup = () => {
               type="text"
               id="fullName"
               name="fullName"
-              value={fullName}
+              value={name}
               onChange={handleFullNameChange}
               className="appearance-none block w-full px-3 py-2 border border-gray-400 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-lg text-black bg-white"
               placeholder="Sajan Mainali"
