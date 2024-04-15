@@ -1,29 +1,37 @@
 import app from "./app.js";
-
-import winston from "winston";
-
-const logger = winston.createLogger({
-    transports: [
-        new winston.transports.Console(),
-        new winston.transports.File({ filename: "logs/error.log", level: "error" }),
-        new winston.transports.File({ filename: "logs/all.log", level:"info"})
-    ]
-});
+import config from "./config/config.js";
 
 
 /**
  *
  * Handling Uncaught exceptions:
+ *
+ *
  */
 
-// process.on("uncaughtException")
+process.on("uncaughtException", (e) => {
+  console.log("Error: ", e.stack);
+});
 
-logger
-
-app.listen(8000, () => {
-  console.log("Server is running on port 8000");
+const server = app.listen(config.port || 5000, () => {
+  console.log(`Vin.Clo is listening on port ${config.port}`);
 });
 
 
+
+/**
+ *
+ *Unhandled Promise Rejection
+ *
+ **/
+
+process.on("unhandledRejection", (err) => {
+  console.log(`Shutting down the server: Error ${err.stack}`);
+  console.log(`Shutting down the server for unhandled promise Rejection`);
+
+  server.close(() => {
+    process.exit(1);
+  });
+});
 
 
