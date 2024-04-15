@@ -7,6 +7,6 @@ router.get("/", (_, res) => {
   res.status(200).send("Vin.Clo is listening:");
 });
 
-router.use("user/", Users);
+router.use("/user", Users);
 
 export default router;

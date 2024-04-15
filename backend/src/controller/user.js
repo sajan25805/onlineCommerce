@@ -29,10 +29,42 @@ export const createUser = async (req, res, next) => {
     };
 
     console.log(user);
-    
-    
 
+    return res.status(201).json({
+      success: true,
+      message: "User Created Successfully",
+      user,
+    });
   } catch (error) {
 
+    console.log("Error");
+  
+    // return res.status(400).json({
+    //   success: false,
+    //   error:error,
+    // });
+  }
+};
+
+/**
+ * Get a User
+ *
+ * @param { Object } req
+ * @param { Object } res
+ * @param { Function } next
+ */
+
+export const getUser = async (req, res, next) => {
+  try {
+
+   const user=  await User.find();
+
+   return res.status(200).json({
+    success:true,
+    user:user,
+   })
+    
+  } catch (error) {
+    console.log("Error",error);
   }
 };

@@ -15,7 +15,7 @@ router.post("/create-user", upload.single("file"), UserController.createUser);
  *
  */
 
-router.get("/users");
+router.get("/users",UserController.getUser);
 
 export const Users = router;
 
