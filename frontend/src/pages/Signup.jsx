@@ -11,16 +11,17 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(true);
-  const [avatar, setAvatar] = useState(false);
+  const [avatar, setAvatar] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { config } = { headers: { "Content-Type": "multipart/form-data" } };
-
+    const config = { headers: { "Content-Type": "multipart/form-data" } };
+    
     const newForm = new FormData();
     newForm.append("file", avatar);
     newForm.append("name", name);
+    newForm.append("email", email);
     newForm.append("password", password);
 
     axios
@@ -33,7 +34,6 @@ const Signup = () => {
       });
   };
 
-  
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
     setAvatar(file);
@@ -41,6 +41,10 @@ const Signup = () => {
 
   const handleFullNameChange = (e) => {
     setName(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
   };
 
   return (
@@ -87,7 +91,7 @@ const Signup = () => {
               id="email"
               name="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleEmailChange}
               placeholder="johndoe@gmail.com"
               autoComplete="off"
               className="appearance-none block w-full px-3 py-2 border border-gray-400 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-lg text-black bg-white"
