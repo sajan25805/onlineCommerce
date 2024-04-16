@@ -1,6 +1,10 @@
 import User from "../model/user.js";
 import ErrorHandler from "../utils/ErrorHandler.js";
 import path from "path";
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * Create a User
@@ -9,7 +13,6 @@ import path from "path";
  * @param { Object } res
  * @param { Function } next
  */
-
 export const createUser = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
@@ -19,10 +22,15 @@ export const createUser = async (req, res, next) => {
       return next(new ErrorHandler("User Already Exists", 400));
     }
 
-    const fileName = req.file.fileName;
-    const fileUrl = path.join(fileName);
+    // Ensure that the file is uploaded before attempting to access its details
+    if (!req.file) {
+      return next(new ErrorHandler("Please upload a file", 400));
+    }
 
-    console.log("FileName", fileName);
+    // Construct the file URL using the path to the uploads folder and the file name
+    const fileUrl = path.join(__dirname, '../../../frontend/uploads/', req.file.filename);
+
+    console.log("File URL:", fileUrl);
 
     const user = {
       name,
@@ -31,7 +39,7 @@ export const createUser = async (req, res, next) => {
       avatar: fileUrl,
     };
 
-    console.log(user);
+    console.log("User:", user);
 
     return res.status(201).json({
       success: true,
@@ -39,14 +47,14 @@ export const createUser = async (req, res, next) => {
       user,
     });
   } catch (error) {
-    console.log("Error");
-
-    // return res.status(400).json({
-    //   success: false,
-    //   error:error,
-    // });
+    console.error("Error:", error.stack);
+    return res.status(400).json({
+      success: false,
+      error: error.message,
+    });
   }
 };
+
 
 /**
  * Get a User
