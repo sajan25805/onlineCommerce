@@ -1,4 +1,5 @@
 import User from "../model/user.js";
+import ErrorHandler from "../utils/ErrorHandler.js";
 import path from "path";
 
 /**
@@ -21,6 +22,8 @@ export const createUser = async (req, res, next) => {
     const fileName = req.file.fileName;
     const fileUrl = path.join(fileName);
 
+    console.log("FileName", fileName);
+
     const user = {
       name,
       email,
@@ -36,9 +39,8 @@ export const createUser = async (req, res, next) => {
       user,
     });
   } catch (error) {
-
     console.log("Error");
-  
+
     // return res.status(400).json({
     //   success: false,
     //   error:error,
@@ -56,15 +58,13 @@ export const createUser = async (req, res, next) => {
 
 export const getUser = async (req, res, next) => {
   try {
+    const user = await User.find();
 
-   const user=  await User.find();
-
-   return res.status(200).json({
-    success:true,
-    user:user,
-   })
-    
+    return res.status(200).json({
+      success: true,
+      user: user,
+    });
   } catch (error) {
-    console.log("Error",error);
+    console.log("Error", error);
   }
 };
