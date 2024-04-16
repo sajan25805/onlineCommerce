@@ -12,7 +12,7 @@ const router = Router();
 router.post("/create-user", upload.single("file"), UserController.createUser);
 
 /**
- *
+ * Get all User List
  */
 
 router.get("/users",UserController.getUser);
