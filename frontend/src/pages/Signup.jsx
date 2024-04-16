@@ -1,7 +1,7 @@
 import { FiKey } from "react-icons/fi";
 import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
 import axios from "axios";
 import { server } from "../server";
@@ -12,12 +12,13 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(true);
   const [avatar, setAvatar] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const config = { headers: { "Content-Type": "multipart/form-data" } };
-    
+
     const newForm = new FormData();
     newForm.append("file", avatar);
     newForm.append("name", name);
@@ -27,7 +28,10 @@ const Signup = () => {
     axios
       .post(`${server}/user/create-user`, newForm, config)
       .then((res) => {
-        console.log(res);
+        if (res.data.success == true) {
+          // navigate("/");
+          alert(res.data.message);
+        }
       })
       .catch((error) => {
         console.log(error);
