@@ -12,6 +12,12 @@ const router = Router();
 router.post("/create-user", upload.single("file"), UserController.createUser);
 
 /**
+ * Activate a User
+ */
+
+router.post("/activate-user", UserController.activateUser);
+
+/**
  * Get all User List
  */
 

@@ -4,6 +4,7 @@ import path from "path";
 import jwt from "jsonwebtoken";
 import config from "../config/config.js";
 import sendMail from "../utils/sendMail.js";
+import sendToken from "../utils/jwtToken.js";
 
 /**
  * Create a User
@@ -49,12 +50,10 @@ export const createUser = async (req, res, next) => {
         message: `Hi ${user.name},\n\nPlease click on the following link to activate your account:\n\n${activationUrl}\n\nIf you did not make this request, please ignore this email and your account will not be activated.\n\nSincerely,\n${config.app.name}`,
       });
 
-      res
-        .status(201)
-        .json({
-          success: true,
-          message: `Please Check your email: ${user.email} to activate your account`,
-        });
+      res.status(201).json({
+        success: true,
+        message: `Please Check your email: ${user.email} to activate your account`,
+      });
     } catch (error) {
       res.status(500).json({ success: false, message: `${error.stack}` });
     }
@@ -85,6 +84,32 @@ const createActivationToken = (user) => {
   return jwt.sign(user, config.auth.activationSecret, {
     expiresIn: "5m",
   });
+};
+
+export const activateUser = async (req, res, next) => {
+  try {
+    const { activation_token } = req.body;
+    const newUser = jwt.verify(activation_token, config.auth.activationSecret);
+
+    if (!newUser) {
+      return next(new ErrorHandler("Invalid Token", 400));
+    }
+
+    const { name, email, password, avatar } = newUser;
+
+    let user = await User.findOne({ email });
+
+    user = awaitUser.create({
+      name,
+      email,
+      password,
+      avatar,
+    });
+
+    sendToken(user, 201, res);
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
 };
 
 /**
