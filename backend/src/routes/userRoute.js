@@ -1,7 +1,7 @@
 import { Router } from "express";
-import path from "path";
 import { upload } from "../services/multer.js";
 import * as UserController from "../controller/user.js";
+import { isAuthenticated } from "../middleware/auth.js";
 
 const router = Router();
 
@@ -21,7 +21,12 @@ router.post("/activate-user", UserController.activateUser);
  * Get all User List
  */
 
-router.get("/users",UserController.getUser);
+router.get("/users", isAuthenticated, UserController.getUser);
+
+/** 
+ * Login User
+ */
+
+router.post("/login", UserController.loginUser);
 
 export const Users = router;
-

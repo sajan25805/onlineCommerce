@@ -1,10 +1,10 @@
 import User from "../model/user.js";
 import ErrorHandler from "../utils/ErrorHandler.js";
 import path from "path";
-import jwt from "jsonwebtoken";
 import config from "../config/config.js";
 import sendMail from "../utils/sendMail.js";
-import sendToken from "../utils/jwtToken.js";
+import { sendToken, createActivationToken } from "../utils/jwtToken.js";
+import jwt from "jsonwebtoken";
 
 /**
  * Create a User
@@ -12,6 +12,7 @@ import sendToken from "../utils/jwtToken.js";
  * @param { Object } req
  * @param { Object } res
  * @param { Function } next
+ *
  */
 export const createUser = async (req, res, next) => {
   try {
@@ -76,16 +77,6 @@ export const createUser = async (req, res, next) => {
   }
 };
 
-/**
- * Activation Token
- */
-
-const createActivationToken = (user) => {
-  return jwt.sign(user, config.auth.activationSecret, {
-    expiresIn: "5m",
-  });
-};
-
 export const activateUser = async (req, res, next) => {
   try {
     const { activation_token } = req.body;
@@ -99,12 +90,14 @@ export const activateUser = async (req, res, next) => {
 
     let user = await User.findOne({ email });
 
-    user = awaitUser.create({
+    user = await User.create({
       name,
       email,
       password,
       avatar,
     });
+
+    console.log(user);
 
     sendToken(user, 201, res);
   } catch (error) {
@@ -130,5 +123,37 @@ export const getUser = async (req, res, next) => {
     });
   } catch (error) {
     console.log("Error", error);
+  }
+};
+
+/**
+ * Login a User
+ */
+
+export const loginUser = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return next(new ErrorHandler("Please provide the all fields!", 400));
+    }
+
+    const user = await User.findOne({ email }).select("+password");
+
+    if (!user) {
+      return next(new ErrorHandler("User doesn't exists!", 400));
+    }
+
+    const isPasswordValid = await user.comparePassword(password);
+
+    if (!isPasswordValid) {
+      return next(
+        new ErrorHandler("Please provide the correct information", 400)
+      );
+    }
+
+    sendToken(user, 201, res);
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
   }
 };
