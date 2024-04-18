@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
 import axios from "axios";
 import { server } from "../server";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -30,11 +31,18 @@ const Signup = () => {
       .then((res) => {
         if (res.data.success == true) {
           // navigate("/");
-          alert(res.data.message);
+          toast.success(res.data.message);
+          setName("");
+          setEmail("");
+          setPassword("");
+          setAvatar();
+        }
+        else {
+          toast.error(res.data.message);
         }
       })
       .catch((error) => {
-        console.log(error);
+        toast.error(error.response.data.message);
       });
   };
 
