@@ -6,8 +6,8 @@ function NavBar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
           <div className="flex items-center">
-            <Link to="/" className="text-black font-bold text-xl">
-              Your Logo
+            <Link to="/" className="text-black font-bold text-2xl  ">
+             Vin.C
             </Link>
           </div>
           <div className="hidden md:block">
