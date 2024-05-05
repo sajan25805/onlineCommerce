@@ -3,15 +3,39 @@ import { useState } from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { server } from "../server";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await axios
+      .post(
+        `${server}/user/login`,
+        {
+          email,
+          password,
+        }
+      )
+      .then((res) => {
+        toast.success("Login Success!");
+        navigate("/");
+        window.location.reload(true);
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message);
+      });
   };
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center p-12 sm:px-6 lg:px-8">
       <div className="sm:w-full max-w-xl bg-white rounded-lg shadow-md p-6 ">
@@ -25,7 +49,7 @@ const Login = () => {
         <p className="text-lg text-gray-900 mb-6">Log in to your account</p>
 
         {/* Login Form */}
-        <form className="space-y-6 px-2 ">
+        <form className="space-y-6 px-2 " onSubmit={handleSubmit}>
           <div className="mt-1">
             <label
               htmlFor="email"
@@ -38,7 +62,7 @@ const Login = () => {
               id="email"
               name="email"
               value={email}
-              onChange={handleEmailChange}
+              onChange={(e) => setEmail(e.target.value)}
               className="appearance-none block w-full px-3 py-2 border border-gray-400 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-lg text-black bg-white"
               placeholder="john@example.com"
               autoComplete=""

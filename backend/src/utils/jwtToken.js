@@ -1,8 +1,11 @@
+import jwt from "jsonwebtoken";
+import config from "../config/config.js";  
+  
   /**
    * create token and saving that in cookies
    */
 
-const sendToken = (user, statusCode, res) => {
+export const sendToken = (user, statusCode, res) => {
     const token = user.getJwtToken();
   
     // Options for cookies
@@ -17,7 +20,16 @@ const sendToken = (user, statusCode, res) => {
       success: true,
       user,
       token,
-    });
+    });  
   };
 
-export default sendToken;
+
+/**
+ * Activation Token
+ */
+
+export const createActivationToken = (user) => {
+  return jwt.sign(user, config.auth.activationSecret, {
+    expiresIn: "5m",
+  });
+};

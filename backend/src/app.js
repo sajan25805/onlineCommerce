@@ -15,7 +15,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 // Middleware setup
-app.use(cors());
+app.use(cors("http://localhost:5173/"));
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));

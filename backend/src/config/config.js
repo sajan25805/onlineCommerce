@@ -20,6 +20,8 @@ export default {
   },
   auth:{
     activationSecret:process.env.ACTIVATION_SECRET,
+    jwtSecret:process.env.JWT_SECRET_KEY,
+    jwtExpiresIn:process.env.JWT_EXPIRES,
   },
   app:{
     name:process.env.APP_NAME,
