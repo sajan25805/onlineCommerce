@@ -26,62 +26,60 @@ export const navItems = [
       title: "Tops",
       subTitle: "",
       image_Url:
-        "https://cdn.shopify.com/s/files/1/1706/9177/products/NEWAppleMacbookProwithM1ProChip14InchLaptop2021ModelMKGQ3LL_A_16GB_1TBSSD_custommacbd.jpg?v=1659592838",
-    },
+          "https://i.pinimg.com/564x/a0/c0/2b/a0c02b67254e60a838452eb8c9de8a3d.jpg"   
+      },
     {
       id: 2,
       title: "Bottoms",
       subTitle: "",
-      image_Url:
-        "https://indian-retailer.s3.ap-south-1.amazonaws.com/s3fs-public/2021-07/kosme1.png",
+      image_Url:"https://i.pinimg.com/564x/c9/6e/f9/c96ef9c413a77eccf10429eb74453868.jpg"
     },
     {
       id: 3,
       title: "Accesories",
       subTitle: "",
-      image_Url:
-        "https://img.freepik.com/free-vector/ordering-goods-online-internet-store-online-shopping-niche-e-commerce-website-mother-buying-babies-clothes-footwear-toys-infant-accessories_335657-2345.jpg?w=2000",
+      image_Url:"https://i.pinimg.com/236x/5c/01/5b/5c015b5e7096bf8c773841a882626486.jpg"
     },
     {
       id: 4,
-      title: "Cloths",
+      title: "Clothes",
       subTitle: "",
       image_Url:
-        "https://www.shift4shop.com/2015/images/industries/clothing/clothing-apparel.png",
+        "https://i.pinimg.com/564x/32/6d/ab/326dab181093f6dc358f6b3e34cb1c4c.jpg",
     },
     {
       id: 5,
       title: "Footwear",
       subTitle: "",
       image_Url:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvBQPQMVNRd6TtDkGs2dCri0Y-rxKkFOiEWw&usqp=CAU",
+        "https://i.pinimg.com/564x/53/29/28/532928580a75d3ed4b006ab82899c48e.jpg",
     },
     {
       id: 6,
       title: "Dresses",
       subTitle: "",
       image_Url:
-        "https://securecdn.pymnts.com/wp-content/uploads/2014/11/Gifts-Photo-700x489.jpg",
+        "https://i.pinimg.com/564x/43/da/ba/43daba9ec9ef33748efb0f1e6323af8b.jpg",
     },
     {
       id: 7,
       title: "Formal Wear",
       subTitle: "",
-      image_Url: "https://cdn.openpr.com/T/c/Tc15444071_g.jpg",
+      image_Url: "",
     },
     {
       id: 8,
       title: "Mobile and Tablets",
       subTitle: "",
       image_Url:
-        "https://st-troy.mncdn.com/mnresize/1500/1500/Content/media/ProductImg/original/mpwp3tua-apple-iphone-14-256gb-mavi-mpwp3tua-637986832343472449.jpg",
+        "https://i.pinimg.com/564x/d2/35/34/d23534abbf11aaf974e10705b32553da.jpg",
     },
     {
       id: 9,
       title: "Men Wears",
       subTitle: "",
       image_Url:
-        "https://static.vecteezy.com/system/resources/previews/011/996/555/original/3d-black-headphone-illustration-ecommerce-icon-png.png",
+        "https://static.vecteezy.com/system/resources/previews/011/996/555/original/-black-headphone-illustration-ecommerce-icon-png.png",
     },
     {
       id: 10,
