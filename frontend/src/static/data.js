@@ -79,14 +79,14 @@ export const navItems = [
       title: "Men Wears",
       subTitle: "",
       image_Url:
-        "https://static.vecteezy.com/system/resources/previews/011/996/555/original/-black-headphone-illustration-ecommerce-icon-png.png",
+        "https://i.pinimg.com/564x/ff/00/00/ff00009421652bef9f54af6ab6521df4.jpg",
     },
     {
       id: 10,
       title: "Female Wears",
       subTitle: "",
       image_Url:
-        "https://searchspring.com/wp-content/uploads/2022/10/Hero-Image-Platform-Others-2.png",
+        "https://i.pinimg.com/736x/d0/b6/f3/d0b6f349336d00d7c05633e69b8a76eb.jpg",
     },
   ];
   
