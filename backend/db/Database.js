@@ -11,8 +11,13 @@ const connectDatabase = () => {
     });
 };
 
+
 module.exports = connectDatabase;
 
 
 
+
+
 console.log(process.env.DB_URL);
+
+
