@@ -16,6 +16,8 @@ import { useSelector } from "react-redux";
 import Cart from "../cart/Cart";
 import Wishlist from "../Wishlist/Wishlist";
 import { RxCross1 } from "react-icons/rx";
+import vintageLogo from "../../images/vinclogo.png";
+
 
 const Header = () => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -30,6 +32,7 @@ const Header = () => {
   const [openCart, setOpenCart] = useState(false);
   const [openWishlist, setOpenWishlist] = useState(false);
   const [open, setOpen] = useState(false);
+
 
   const handleSearchChange = (e) => {
     const term = e.target.value;
@@ -57,7 +60,8 @@ const Header = () => {
         <div className="hidden 800px:h-[50px] 800px:my-[20px] 800px:flex items-center justify-between">
           <div>
             <Link to="/">
-            <p className="text-white text-2xl rounded-md bg-black px-4 py-2">Vin.Clo</p>
+            <img src={vintageLogo} alt="My Image" height="50" width="50" />            
+         
             </Link>
           </div>
           {/* search box */}
